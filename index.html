@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title style="font-family: Georgia, 'Times New Roman', Times, serif;">Temperature Converter</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #4facfe, #ff76ef);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .container {
+        background: rgb(179, 228, 253);
+        padding: 25px;
+        border-radius: 10px;
+        width: 320px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+        margin-bottom: 15px;
+    }
+
+    input, select {
+        width: 90%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+    }
+
+    button {
+        background: #007BFF;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background: #0056b3;
+    }
+
+    #result {
+        margin-top: 15px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .error {
+        color: red;
+        font-size: 14px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2 style="font-family: 'Times New Roman', Times, serif;">🌡 Temperature Converter</h2>
+
+    <input type="text" id="temp" placeholder="Enter temperature">
+
+    <select id="conversion">
+        <option value="cf">Celsius → Fahrenheit</option>
+        <option value="fc">Fahrenheit → Celsius</option>
+        <option value="ck">Celsius → Kelvin</option>
+        <option value="kc">Kelvin → Celsius</option>
+        <option value="fk">Fahrenheit → Kelvin</option>
+        <option value="kf">Kelvin → Fahrenheit</option>
+    </select>
+
+    <button onclick="convertTemp()">Convert</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+function convertTemp() {
+    let temp = document.getElementById("temp").value;
+    let type = document.getElementById("conversion").value;
+    let result = document.getElementById("result");
+
+    if (temp === "" || isNaN(temp)) {
+        result.innerHTML = "<span class='error'>⚠ Please enter a valid number</span>";
+        return;
+    }
+
+    temp = parseFloat(temp);
+    let output;
+
+    switch(type) {
+        case "cf":
+            output = (temp * 9/5) + 32;
+            result.innerHTML = output.toFixed(2) + " °F";
+            break;
+
+        case "fc":
+            output = (temp - 32) * 5/9;
+            result.innerHTML = output.toFixed(2) + " °C";
+            break;
+
+        case "ck":
+            output = temp + 273.15;
+            result.innerHTML = output.toFixed(2) + " K";
+            break;
+
+        case "kc":
+            output = temp - 273.15;
+            result.innerHTML = output.toFixed(2) + " °C";
+            break;
+
+        case "fk":
+            output = (temp - 32) * 5/9 + 273.15;
+            result.innerHTML = output.toFixed(2) + " K";
+            break;
+
+        case "kf":
+            output = (temp - 273.15) * 9/5 + 32;
+            result.innerHTML = output.toFixed(2) + " °F";
+            break;
+    }
+}
+</script>
+
+</body>
+</html>
